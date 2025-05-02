@@ -43,14 +43,14 @@ if [ -z "$CONFIG" ]; then
 fi
 
 # Build command
-CMD="python train.py --config $CONFIG"
+CMD="poetry run python train/train.py --config $CONFIG"
 if [ -n "$RESUME" ]; then
     CMD="$CMD --resume $RESUME"
 fi
 
 # Launch training
 if [ $GPUS -gt 1 ]; then
-    torchrun --nproc_per_node=$GPUS $CMD
+    poetry run torchrun --nproc_per_node=$GPUS $CMD
 else
     $CMD
 fi

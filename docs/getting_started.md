@@ -8,10 +8,12 @@
    cd ecg_dino
    ```
 
-2. Set up the environment:
+2. Set up the Poetry environment:
    ```bash
    bash scripts/setup_environment.sh
    ```
+   
+   This script will install Poetry if it's not already installed, and then install all project dependencies.
 
 3. Download the PTB-XL dataset:
    ```bash
@@ -25,6 +27,10 @@
 1. Configure pretraining parameters in `configs/pretrain.yaml`
 2. Run pretraining:
    ```bash
+   # Using the Makefile
+   make pretrain
+   
+   # Or directly with the script
    bash scripts/train.sh pretrain
    ```
 
@@ -33,6 +39,10 @@
 1. Configure fine-tuning parameters in `configs/finetune.yaml`
 2. Run fine-tuning:
    ```bash
+   # Using the Makefile
+   make finetune
+   
+   # Or directly with the script
    bash scripts/train.sh finetune
    ```
 
@@ -58,6 +68,44 @@ To use your own ECG dataset:
    from torch.utils.data import DataLoader
    
    dataloader = DataLoader(dataset, batch_size=32, shuffle=True)
+   ```
+
+## Development with Poetry
+
+This project uses Poetry for dependency management. Here are some common commands:
+
+1. Activate the Poetry shell:
+   ```bash
+   poetry shell
+   ```
+
+2. Run a command within the Poetry environment without activating the shell:
+   ```bash
+   poetry run python train/train.py --config configs/pretrain.yaml
+   ```
+
+3. Add a new dependency:
+   ```bash
+   poetry add package-name
+   ```
+
+4. Add a development dependency:
+   ```bash
+   poetry add --group dev package-name
+   ```
+
+5. Update dependencies:
+   ```bash
+   poetry update
+   ```
+
+6. Run tests:
+   ```bash
+   # Using the Makefile
+   make test
+   
+   # Or directly with Poetry
+   poetry run pytest tests/
    ```
 
 ## ML Model Integration
